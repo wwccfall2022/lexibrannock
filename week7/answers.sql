@@ -212,29 +212,31 @@ BEGIN
     SELECT armor_total(target) INTO char_armor;
     SELECT item_id INTO weapon FROM equipped WHERE equipped_id = chosen_weapon;
     SELECT damage INTO wep_damage FROM items WHERE item_id = weapon;
-    SELECT MAX(damage) INTO wep_damage FROM character_equipped WHERE character_id=attacker AND damage > 0;
-    SELECT item_id INTO weapon FROM character_equipped WHERE character_id=attacker AND damage >;
-    SELECT damage INTO wep_damage FROM character_equipped WHERE item_id=weapon GROUP BY item_id;
+    -- SELECT MAX(damage) INTO wep_damage FROM character_equipped WHERE character_id=attacker AND damage > 0;
+    -- SELECT item_id INTO weapon FROM character_equipped WHERE character_id=attacker AND damage >;
+    -- SELECT damage INTO wep_damage FROM character_equipped WHERE item_id=weapon GROUP BY item_id;
 
      IF wep_damage <= char_armor THEN
 		SELECT 'Damage Blocked!' AS outcome;
-		SELECT 'Damage Blocked!' INTO outcome;
+		-- SELECT 'Damage Blocked!' INTO outcome;
      ELSE
 		SELECT health INTO char_health FROM character_stats WHERE character_id=target;
 		SELECT wep_damage - char_armor INTO netdmg;
 		SET char_health = char_health - netdmg;
 		UPDATE character_stats SET health=char_health WHERE character_id=target;
-		SELECT 'Damage Taken!' AS outcome, netdmg AS damage_taken, char_health AS remaining_health;
+		-- SELECT 'Damage Taken!' AS outcome, netdmg AS damage_taken, char_health AS remaining_health;
         
 		IF char_health < 1 THEN
-		SELECT name AS name, 'Died' AS status FROM characters WHERE characters_id=target;
+		-- SELECT name AS name, 'Died' AS status FROM characters WHERE characters_id=target;
 			DELETE FROM characters WHERE character_id=target;
 		END IF; 
+		
+		END IF;
       
 END;;
 DELIMITER ;
 
-CALL attack(10, 68);
+-- CALL attack(10, 68);
 
 DELIMITER ;;
 CREATE PROCEDURE equip(equip_id INT UNSIGNED)
