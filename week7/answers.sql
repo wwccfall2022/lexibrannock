@@ -212,7 +212,6 @@ BEGIN
     SELECT armor_total(target) INTO char_armor;
     SELECT item_id INTO weapon FROM equipped WHERE equipped_id = chosen_weapon;
     SELECT damage INTO wep_damage FROM items WHERE item_id = weapon;
-    SELECT MAX(damage) INTO 
     SELECT MAX(damage) INTO wep_damage FROM character_equipped WHERE character_id=attacker AND damage > 0;
     SELECT item_id INTO weapon FROM character_equipped WHERE character_id=attacker AND damage >;
     SELECT damage INTO wep_damage FROM character_equipped WHERE item_id=weapon GROUP BY item_id;
